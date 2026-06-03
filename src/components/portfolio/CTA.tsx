@@ -1,4 +1,4 @@
-import { MessageCircle, Mail, MapPin, Phone, Instagram, ArrowRight } from "lucide-react";
+import { MessageCircle, Mail, MapPin, Phone, AtSign as Instagram, ArrowRight } from "lucide-react";
 
 const WHATSAPP = "https://wa.me/5562981321845?text=Ol%C3%A1%20Alexandre%2C%20quero%20conversar%20sobre%20um%20projeto.";
 
