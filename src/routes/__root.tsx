@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Alexandre Lima - Ux/Ui Designer" },
+      { name: "description", content: "A personal portfolio landing page for a UX/UI Designer and Senior Full-Stack Developer." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Alexandre Lima - Ux/Ui Designer" },
+      { property: "og:description", content: "A personal portfolio landing page for a UX/UI Designer and Senior Full-Stack Developer." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Alexandre Lima - Ux/Ui Designer" },
+      { name: "twitter:description", content: "A personal portfolio landing page for a UX/UI Designer and Senior Full-Stack Developer." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/hYC6u5wIrpSpkreUQeFxenzofej2/social-images/social-1780496524341-1000118736.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/hYC6u5wIrpSpkreUQeFxenzofej2/social-images/social-1780496524341-1000118736.webp" },
     ],
     links: [
       {
