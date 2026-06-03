@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Palette, Smartphone, Brain, Workflow, Code2, Layers, Figma, Database } from "lucide-react";
+import { Palette, Smartphone, Brain, Workflow, Code2, Layers, PenTool as Figma, Database } from "lucide-react";
 
 const skills = [
   { icon: Palette, name: "UX/UI Design", desc: "Pesquisa, wireframe, prototipação e design systems escaláveis." },
