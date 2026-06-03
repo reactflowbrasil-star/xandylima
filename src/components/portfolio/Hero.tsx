@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
-import portrait from "@/assets/alexandre-portrait.jpg";
+import portraitAsset from "@/assets/alexandre-portrait.png.asset.json";
 import heroBg from "@/assets/hero-bg.jpg";
+
+const portrait = portraitAsset.url;
 
 const WHATSAPP = "https://wa.me/5562981321845?text=Ol%C3%A1%20Alexandre%2C%20vim%20pelo%20seu%20portf%C3%B3lio!";
 
