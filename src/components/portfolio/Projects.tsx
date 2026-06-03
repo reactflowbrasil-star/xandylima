@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
-import p4 from "@/assets/project-4.jpg";
-import p5 from "@/assets/project-5.jpg";
-import p6 from "@/assets/project-6.jpg";
+import triboCamisetas from "@/assets/tribo-camisetas.jpg.asset.json";
+import triboBranding from "@/assets/tribo-branding.jpg.asset.json";
+import missGoias from "@/assets/miss-goias.jpg.asset.json";
+import vetnutriLogo from "@/assets/vetnutri-logo-dark.jpg.asset.json";
+import vetnutriLight from "@/assets/vetnutri-logo-light.jpg.asset.json";
+import vetnutriLanyard from "@/assets/vetnutri-lanyard.jpg.asset.json";
+import xtremeLogo from "@/assets/xtreme-logo.jpg.asset.json";
+import xtremeCamisetas from "@/assets/xtreme-camisetas.jpg.asset.json";
+import xtremeCap from "@/assets/xtreme-cap.jpg.asset.json";
+import xtremePresentation from "@/assets/xtreme-presentation.png.asset.json";
 
 type Project = {
   id: number;
   title: string;
   category: string;
-  tag: "UX/UI" | "Web" | "Mobile" | "IA" | "Automação";
+  tag: "Branding" | "Editorial" | "Social Media" | "Identidade Visual";
   image: string;
   description: string;
   stack: string[];
@@ -20,15 +24,19 @@ type Project = {
 };
 
 const projects: Project[] = [
-  { id: 1, title: "NeoBank Mobile", category: "Fintech · App", tag: "Mobile", image: p1, description: "Redesign completo de aplicativo bancário com foco em onboarding sem fricção e personalização por IA.", stack: ["Figma", "Android", "Kotlin", "Jetpack"], kpi: "+42% retenção D30" },
-  { id: 2, title: "Pulse Analytics", category: "SaaS · Dashboard", tag: "Web", image: p2, description: "Painel de BI com design system próprio, dark-first e visualizações de dados em tempo real.", stack: ["React", "Tailwind", "Recharts", "Webflow"], kpi: "−63% tempo de leitura" },
-  { id: 3, title: "Aria Chat", category: "Agente de IA humanizado", tag: "IA", image: p3, description: "Assistente conversacional treinado em base proprietária com memória de longo prazo e tom de marca.", stack: ["LLM", "RAG", "n8n", "Node"], kpi: "+3.1× conversão" },
-  { id: 4, title: "FitTrack Android", category: "App nativo Android", tag: "Mobile", image: p4, description: "App de treinos com Material You, animações fluídas e sincronização offline-first.", stack: ["Kotlin", "Jetpack Compose", "Room"], kpi: "4.8★ na Play Store" },
-  { id: 5, title: "FlowOps", category: "Automação ponta-a-ponta", tag: "Automação", image: p5, description: "Orquestração de workflows entre CRM, financeiro e WhatsApp para uma rede de clínicas.", stack: ["n8n", "Make", "Postgres", "Twilio"], kpi: "200h/mês economizadas" },
-  { id: 6, title: "Bloom Commerce", category: "E-commerce · Webflow", tag: "Web", image: p6, description: "Loja headless construída no Webflow com checkout customizado e CMS pluggável.", stack: ["Webflow", "Shopify", "GSAP"], kpi: "+58% ticket médio" },
+  { id: 1, title: "Tribo Produções", category: "Branding · Vestuário", tag: "Branding", image: triboCamisetas.url, description: "Identidade visual e linha de camisetas para a Tribo Produções, com mascote tiki autoral e tipografia condensada de alto impacto.", stack: ["Illustrator", "Photoshop", "Mockups"], kpi: "Marca 100% autoral" },
+  { id: 2, title: "Tribo · Papelaria", category: "Identidade Visual completa", tag: "Identidade Visual", image: triboBranding.url, description: "Sistema de identidade da Tribo Produções aplicado em papelaria, cartões, envelopes e mídia física com acabamento premium.", stack: ["Branding", "Print", "Mockups"], kpi: "Kit completo entregue" },
+  { id: 3, title: "Miss Goiás Magazine", category: "Editorial · Revista", tag: "Editorial", image: missGoias.url, description: "Capa e teaser de lançamento da Revista Miss Goiás, com direção de arte editorial e tipografia clássica em serifa.", stack: ["InDesign", "Photoshop", "Direção de Arte"], kpi: "Edição publicada" },
+  { id: 4, title: "Vet Nutri · Logo", category: "Identidade · Veterinária", tag: "Identidade Visual", image: vetnutriLogo.url, description: "Criação do logotipo da Vet Nutri com símbolo monograma em degradê azul e roxo, transmitindo modernidade e cuidado.", stack: ["Illustrator", "Branding"], kpi: "Marca aprovada" },
+  { id: 5, title: "Vet Nutri · Social", category: "Social Media · Carla Maion", tag: "Social Media", image: vetnutriLight.url, description: "Linha de posts e identidade aplicada para redes sociais da Dra. Carla Maion, com versão light da marca Vet Nutri.", stack: ["Photoshop", "Social Kit"], kpi: "Padrão visual consolidado" },
+  { id: 6, title: "Vet Nutri · Brinde", category: "Aplicação de marca", tag: "Branding", image: vetnutriLanyard.url, description: "Aplicação da marca Vet Nutri em cordão/lanyard para eventos e clínica, com versão monocromática branca.", stack: ["Mockups", "Branding"], kpi: "Material entregue" },
+  { id: 7, title: "Xtreme Shoes · Logo", category: "Branding · E-commerce esportivo", tag: "Branding", image: xtremePresentation.url, description: "Identidade visual completa para a loja online Xtreme Shoes, com símbolo circular dinâmico em laranja e cinza.", stack: ["Illustrator", "Branding", "Logo Design"], kpi: "Marca completa" },
+  { id: 8, title: "Xtreme · Vestuário", category: "Aplicação em camisetas", tag: "Identidade Visual", image: xtremeCamisetas.url, description: "Aplicação da marca Xtreme Shoes em peças de vestuário corporativo, exploração da versão horizontal e símbolo.", stack: ["Mockups", "Photoshop"], kpi: "Uniforme aprovado" },
+  { id: 9, title: "Xtreme · Boné", category: "Brinde corporativo", tag: "Branding", image: xtremeCap.url, description: "Aplicação bordada do símbolo Xtreme Shoes em boné snapback, mantendo a leitura mesmo em tom-sobre-tom.", stack: ["Mockup", "Branding"], kpi: "Lote produzido" },
+  { id: 10, title: "Xtreme · Banner", category: "Comunicação visual", tag: "Social Media", image: xtremeLogo.url, description: "Peça de comunicação do símbolo Xtreme Shoes com produto fotografado, usada como cover e mídia paga.", stack: ["Photoshop", "Direção de Arte"], kpi: "Campanha rodando" },
 ];
 
-const filters = ["Todos", "UX/UI", "Web", "Mobile", "IA", "Automação"] as const;
+const filters = ["Todos", "Branding", "Identidade Visual", "Editorial", "Social Media"] as const;
 
 export function Projects() {
   const [active, setActive] = useState<(typeof filters)[number]>("Todos");
