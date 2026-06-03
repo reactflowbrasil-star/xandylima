@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Quote, Instagram as InstagramIcon } from "lucide-react";
-const Instagram = InstagramIcon;
+import { Quote, AtSign as Instagram } from "lucide-react";
 
 const items = [
   { name: "Mariana Costa", role: "Head of Product · NeoBank", text: "O Alexandre não entrega só design — entrega clareza estratégica. Em 6 semanas reescrevemos a jornada inteira do app." },
