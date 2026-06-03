@@ -42,7 +42,7 @@ export function Projects() {
   const [active, setActive] = useState<(typeof filters)[number]>("Todos");
   const [modal, setModal] = useState<Project | null>(null);
 
-  const filtered = active === "Todos" ? projects : projects.filter((p) => p.tag === active || (active === "UX/UI" && (p.tag === "Web" || p.tag === "Mobile")));
+  const filtered = active === "Todos" ? projects : projects.filter((p) => p.tag === active);
 
   return (
     <section id="projetos" className="section-padding relative">
