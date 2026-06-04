@@ -1,33 +1,65 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
-import portraitAsset from "@/assets/alexandre-portrait.png.asset.json";
 import heroBgAsset from "@/assets/hero-portrait-bg.png.asset.json";
 
-const portrait = portraitAsset.url;
 const heroBg = heroBgAsset.url;
 
 const WHATSAPP = "https://wa.me/5562981321845?text=Ol%C3%A1%20Alexandre%2C%20vim%20pelo%20seu%20portf%C3%B3lio!";
 
-function Typewriter({ text, delay = 0, speed = 70 }: { text: string; delay?: number; speed?: number }) {
+const PHRASES = [
+  "experiências digitais",
+  "interfaces memoráveis",
+  "produtos com alma",
+  "apps que encantam",
+  "agentes de IA humanos",
+];
+
+function Typewriter({
+  phrases,
+  typeSpeed = 70,
+  deleteSpeed = 35,
+  holdMs = 1600,
+  startDelay = 500,
+}: {
+  phrases: string[];
+  typeSpeed?: number;
+  deleteSpeed?: number;
+  holdMs?: number;
+  startDelay?: number;
+}) {
+  const [index, setIndex] = useState(0);
   const [out, setOut] = useState("");
-  const [started, setStarted] = useState(false);
+  const [phase, setPhase] = useState<"idle" | "typing" | "holding" | "deleting">("idle");
 
   useEffect(() => {
-    const t = setTimeout(() => setStarted(true), delay);
+    const t = setTimeout(() => setPhase("typing"), startDelay);
     return () => clearTimeout(t);
-  }, [delay]);
+  }, [startDelay]);
 
   useEffect(() => {
-    if (!started) return;
-    if (out.length >= text.length) return;
-    const t = setTimeout(() => setOut(text.slice(0, out.length + 1)), speed);
-    return () => clearTimeout(t);
-  }, [started, out, text, speed]);
+    const current = phrases[index];
+    let t: ReturnType<typeof setTimeout>;
+    if (phase === "typing") {
+      if (out.length < current.length) {
+        t = setTimeout(() => setOut(current.slice(0, out.length + 1)), typeSpeed);
+      } else {
+        t = setTimeout(() => setPhase("deleting"), holdMs);
+      }
+    } else if (phase === "deleting") {
+      if (out.length > 0) {
+        t = setTimeout(() => setOut(current.slice(0, out.length - 1)), deleteSpeed);
+      } else {
+        setIndex((i) => (i + 1) % phrases.length);
+        setPhase("typing");
+      }
+    }
+    return () => clearTimeout(t!);
+  }, [phase, out, index, phrases, typeSpeed, deleteSpeed, holdMs]);
 
   return (
-    <span className="text-gradient-primary inline-block">
-      {out}
+    <span className="text-gradient-primary inline-block min-h-[1.1em]">
+      {out || "\u00A0"}
       <span
         className="inline-block w-[3px] md:w-[4px] h-[0.85em] align-[-0.1em] ml-1 bg-primary animate-pulse"
         aria-hidden
@@ -39,19 +71,21 @@ function Typewriter({ text, delay = 0, speed = 70 }: { text: string; delay?: num
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
-      {/* Right-side portrait background */}
+      {/* Right-side portrait background (the photo IS the hero visual) */}
       <div
-        className="absolute inset-y-0 right-0 w-full md:w-[65%] lg:w-[55%] -z-10 bg-no-repeat bg-cover bg-right opacity-90"
+        className="absolute inset-y-0 right-0 w-[85%] sm:w-[70%] md:w-[60%] lg:w-[55%] -z-10 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url(${heroBg})` }}
       />
-      {/* Left-to-right fade so text stays readable */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/85 md:via-background/70 to-transparent" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-transparent to-background/40" />
+      {/* Soft fade from left to keep text readable, transparent on the right where the face sits */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/90 to-background/10" />
+      {/* Subtle bottom vignette */}
+      <div className="absolute inset-x-0 bottom-0 h-40 -z-10 bg-gradient-to-t from-background to-transparent" />
 
       <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] animate-pulse-glow -z-10" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[100px] -z-10" />
 
       <div className="container-max w-full px-6 md:px-10 lg:px-16 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
+
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -73,7 +107,7 @@ export function Hero() {
             className="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight"
           >
             Criando<br />
-            <Typewriter text="experiências digitais" delay={600} speed={65} /><br />
+            <Typewriter phrases={PHRASES} startDelay={600} typeSpeed={65} /><br />
             que conectam pessoas e tecnologia.
           </motion.h1>
 
@@ -125,38 +159,28 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Portrait card */}
+        {/* Floating badges over the background portrait */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="relative mx-auto lg:ml-auto w-full max-w-md"
+          transition={{ duration: 1, delay: 0.6 }}
+          className="relative hidden lg:block h-[480px]"
         >
-          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-primary/40 via-primary/10 to-transparent blur-2xl" />
-          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-border grain">
-            <img
-              src={portrait}
-              alt="Retrato de Alexandre de Lima Cardoso"
-              width={1024}
-              height={1280}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-            <div className="absolute bottom-5 left-5 right-5 glass rounded-2xl p-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Especialidade</div>
-                <div className="text-sm font-semibold">UX/UI · Mobile · IA</div>
-              </div>
+          <div className="absolute top-8 right-0 glass rounded-2xl p-4 flex items-center gap-3 animate-float">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs uppercase tracking-wider text-muted-foreground">Especialidade</div>
+              <div className="text-sm font-semibold">UX/UI · Mobile · IA</div>
             </div>
           </div>
-          <div className="absolute -top-6 -right-2 lg:-right-6 glass rounded-2xl p-3 px-4 animate-float">
+          <div className="absolute bottom-8 right-6 glass rounded-2xl p-3 px-4">
             <div className="text-xs text-muted-foreground">Webflow Certified</div>
             <div className="text-sm font-display font-bold text-primary">Senior Designer</div>
           </div>
         </motion.div>
+
       </div>
     </section>
   );
