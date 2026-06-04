@@ -161,38 +161,28 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Portrait card */}
+        {/* Floating badges over the background portrait */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="relative mx-auto lg:ml-auto w-full max-w-md"
+          transition={{ duration: 1, delay: 0.6 }}
+          className="relative hidden lg:block h-[480px]"
         >
-          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-primary/40 via-primary/10 to-transparent blur-2xl" />
-          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-border grain">
-            <img
-              src={portrait}
-              alt="Retrato de Alexandre de Lima Cardoso"
-              width={1024}
-              height={1280}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-            <div className="absolute bottom-5 left-5 right-5 glass rounded-2xl p-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Especialidade</div>
-                <div className="text-sm font-semibold">UX/UI · Mobile · IA</div>
-              </div>
+          <div className="absolute top-8 right-0 glass rounded-2xl p-4 flex items-center gap-3 animate-float">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs uppercase tracking-wider text-muted-foreground">Especialidade</div>
+              <div className="text-sm font-semibold">UX/UI · Mobile · IA</div>
             </div>
           </div>
-          <div className="absolute -top-6 -right-2 lg:-right-6 glass rounded-2xl p-3 px-4 animate-float">
+          <div className="absolute bottom-8 right-6 glass rounded-2xl p-3 px-4">
             <div className="text-xs text-muted-foreground">Webflow Certified</div>
             <div className="text-sm font-display font-bold text-primary">Senior Designer</div>
           </div>
         </motion.div>
+
       </div>
     </section>
   );
