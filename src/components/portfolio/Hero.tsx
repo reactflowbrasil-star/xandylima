@@ -107,7 +107,7 @@ export function Hero() {
             className="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight"
           >
             Criando<br />
-            <Typewriter text="experiências digitais" delay={600} speed={65} /><br />
+            <Typewriter phrases={PHRASES} startDelay={600} typeSpeed={65} /><br />
             que conectam pessoas e tecnologia.
           </motion.h1>
 
