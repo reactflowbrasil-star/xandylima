@@ -1,25 +1,53 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
 import portraitAsset from "@/assets/alexandre-portrait.png.asset.json";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBgAsset from "@/assets/hero-portrait-bg.png.asset.json";
 
 const portrait = portraitAsset.url;
+const heroBg = heroBgAsset.url;
 
 const WHATSAPP = "https://wa.me/5562981321845?text=Ol%C3%A1%20Alexandre%2C%20vim%20pelo%20seu%20portf%C3%B3lio!";
+
+function Typewriter({ text, delay = 0, speed = 70 }: { text: string; delay?: number; speed?: number }) {
+  const [out, setOut] = useState("");
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setStarted(true), delay);
+    return () => clearTimeout(t);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    if (out.length >= text.length) return;
+    const t = setTimeout(() => setOut(text.slice(0, out.length + 1)), speed);
+    return () => clearTimeout(t);
+  }, [started, out, text, speed]);
+
+  return (
+    <span className="text-gradient-primary inline-block">
+      {out}
+      <span
+        className="inline-block w-[3px] md:w-[4px] h-[0.85em] align-[-0.1em] ml-1 bg-primary animate-pulse"
+        aria-hidden
+      />
+    </span>
+  );
+}
 
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
-      {/* Background */}
+      {/* Right-side portrait background */}
       <div
-        className="absolute inset-0 -z-10 opacity-60"
-        style={{
-          backgroundImage: `url(${heroBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        className="absolute inset-y-0 right-0 w-full md:w-[65%] lg:w-[55%] -z-10 bg-no-repeat bg-cover bg-right opacity-90"
+        style={{ backgroundImage: `url(${heroBg})` }}
       />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+      {/* Left-to-right fade so text stays readable */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/85 md:via-background/70 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-transparent to-background/40" />
+
       <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] animate-pulse-glow -z-10" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[100px] -z-10" />
 
@@ -45,7 +73,7 @@ export function Hero() {
             className="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight"
           >
             Criando<br />
-            <span className="text-gradient-primary">experiências digitais</span><br />
+            <Typewriter text="experiências digitais" delay={600} speed={65} /><br />
             que conectam pessoas e tecnologia.
           </motion.h1>
 
@@ -97,7 +125,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Portrait */}
+        {/* Portrait card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
