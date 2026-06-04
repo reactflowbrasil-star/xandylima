@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
-import heroBgAsset from "@/assets/hero-portrait-bg.png.asset.json";
+import heroBgAsset from "@/assets/hero-portrait-bg-v2.png.asset.json";
 
 const heroBg = heroBgAsset.url;
 
@@ -71,13 +71,13 @@ function Typewriter({
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
-      {/* Right-side portrait background (the photo IS the hero visual) */}
+      {/* Right-side portrait — full height, visible on mobile too (matches reference) */}
       <div
-        className="absolute inset-y-0 right-0 w-[85%] sm:w-[70%] md:w-[60%] lg:w-[55%] -z-10 bg-no-repeat bg-cover bg-center"
+        className="absolute inset-y-0 right-0 w-[65%] sm:w-[60%] md:w-[55%] lg:w-[50%] -z-10 bg-no-repeat bg-cover bg-right-top"
         style={{ backgroundImage: `url(${heroBg})` }}
       />
-      {/* Soft fade from left to keep text readable, transparent on the right where the face sits */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/90 to-background/10" />
+      {/* Fade from left so text stays legible; transparent on the right where the face sits */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/80 to-transparent" />
       {/* Subtle bottom vignette */}
       <div className="absolute inset-x-0 bottom-0 h-40 -z-10 bg-gradient-to-t from-background to-transparent" />
 
