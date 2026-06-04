@@ -11,6 +11,7 @@ import { FAQ } from "@/components/portfolio/FAQ";
 import { CTA } from "@/components/portfolio/CTA";
 import { Footer } from "@/components/portfolio/Footer";
 import { FloatingWhatsApp } from "@/components/portfolio/FloatingWhatsApp";
+import { IntroVideo } from "@/components/portfolio/IntroVideo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,6 +43,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="bg-background text-foreground">
+      <IntroVideo />
       <Navbar />
       <Hero />
       <Marquee />
