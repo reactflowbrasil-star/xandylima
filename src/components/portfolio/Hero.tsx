@@ -70,21 +70,29 @@ function Typewriter({
 
 export function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
-      {/* Right-side portrait — full height, visible on mobile too (matches reference) */}
-      <div
-        className="absolute inset-y-0 right-0 w-[65%] sm:w-[60%] md:w-[55%] lg:w-[50%] -z-10 bg-no-repeat bg-cover bg-right-top"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      />
-      {/* Fade from left so text stays legible; transparent on the right where the face sits */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/80 to-transparent" />
-      {/* Subtle bottom vignette */}
-      <div className="absolute inset-x-0 bottom-0 h-40 -z-10 bg-gradient-to-t from-background to-transparent" />
+    <section id="home" className="relative isolate min-h-screen flex items-center overflow-hidden bg-background pt-28 pb-16">
+      {/* Visible portrait layer */}
+      <div className="absolute inset-y-0 right-0 z-0 w-[86%] sm:w-[76%] md:w-[66%] lg:w-[56%] xl:w-[52%] pointer-events-none overflow-hidden">
+        <img
+          src={heroBg}
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover object-top opacity-95"
+        />
+      </div>
 
-      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] animate-pulse-glow -z-10" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[100px] -z-10" />
+      {/* Reference-style top orange glow */}
+      <div className="absolute inset-x-0 top-0 z-[1] h-64 pointer-events-none bg-[radial-gradient(ellipse_at_top,oklch(0.68_0.235_38_/_0.28),transparent_65%)]" />
 
-      <div className="container-max w-full px-6 md:px-10 lg:px-16 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
+      {/* Premium readability overlays */}
+      <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-r from-background via-background/85 md:via-background/74 to-transparent" />
+      <div className="absolute inset-0 z-[3] pointer-events-none bg-gradient-to-b from-background/10 via-transparent to-background" />
+      <div className="absolute inset-x-0 bottom-0 z-[4] h-44 pointer-events-none bg-gradient-to-t from-background to-transparent" />
+
+      <div className="absolute top-1/4 -left-32 z-[5] w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] animate-pulse-glow pointer-events-none" />
+      <div className="absolute bottom-0 right-0 z-[5] w-[400px] h-[400px] rounded-full bg-primary/10 blur-[100px] pointer-events-none" />
+
+      <div className="container-max relative z-10 w-full px-6 md:px-10 lg:px-16 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
 
         <div>
           <motion.div
@@ -159,7 +167,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Floating badges over the background portrait */}
+        {/* Floating badges over the portrait */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
