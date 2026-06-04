@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
-import heroBgAsset from "@/assets/hero-portrait-bg.png.asset.json";
+import heroBgAsset from "@/assets/hero-portrait-bg-v2.png.asset.json";
 
 const heroBg = heroBgAsset.url;
 
