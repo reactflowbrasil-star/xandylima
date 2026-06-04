@@ -73,19 +73,21 @@ function Typewriter({
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
-      {/* Right-side portrait background */}
+      {/* Right-side portrait background (the photo IS the hero visual) */}
       <div
-        className="absolute inset-y-0 right-0 w-full md:w-[65%] lg:w-[55%] -z-10 bg-no-repeat bg-cover bg-right opacity-90"
+        className="absolute inset-y-0 right-0 w-[85%] sm:w-[70%] md:w-[60%] lg:w-[55%] -z-10 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url(${heroBg})` }}
       />
-      {/* Left-to-right fade so text stays readable */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/85 md:via-background/70 to-transparent" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-transparent to-background/40" />
+      {/* Soft fade from left to keep text readable, transparent on the right where the face sits */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/90 to-background/10" />
+      {/* Subtle bottom vignette */}
+      <div className="absolute inset-x-0 bottom-0 h-40 -z-10 bg-gradient-to-t from-background to-transparent" />
 
       <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] animate-pulse-glow -z-10" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[100px] -z-10" />
 
       <div className="container-max w-full px-6 md:px-10 lg:px-16 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
+
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
