@@ -71,15 +71,28 @@ function Typewriter({
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
-      {/* Right-side portrait — full height, visible on mobile too (matches reference) */}
+      {/* Cinematic portrait background — positioned like the mobile reference */}
       <div
-        className="absolute inset-y-0 right-0 w-[65%] sm:w-[60%] md:w-[55%] lg:w-[50%] -z-10 bg-no-repeat bg-cover bg-right-top"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        className="absolute inset-y-0 right-0 w-[78%] sm:w-[72%] md:w-[64%] lg:w-[56%] xl:w-[52%] -z-10 bg-no-repeat bg-cover"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          backgroundPosition: "center top",
+        }}
       />
-      {/* Fade from left so text stays legible; transparent on the right where the face sits */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/80 to-transparent" />
-      {/* Subtle bottom vignette */}
-      <div className="absolute inset-x-0 bottom-0 h-40 -z-10 bg-gradient-to-t from-background to-transparent" />
+
+      {/* Orange top light from the reference image */}
+      <div
+        className="absolute inset-x-0 top-0 h-56 -z-10 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at top, oklch(0.68 0.235 38 / 0.24), transparent 64%)",
+        }}
+      />
+
+      {/* Strong left fade for premium dark composition and text legibility */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/90 md:via-background/82 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/20 via-transparent to-background" />
+      <div className="absolute inset-y-0 left-0 w-[58%] -z-10 bg-gradient-to-r from-background via-background/95 to-transparent" />
 
       <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] animate-pulse-glow -z-10" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[100px] -z-10" />
