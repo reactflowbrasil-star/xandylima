@@ -9,25 +9,59 @@ const heroBg = heroBgAsset.url;
 
 const WHATSAPP = "https://wa.me/5562981321845?text=Ol%C3%A1%20Alexandre%2C%20vim%20pelo%20seu%20portf%C3%B3lio!";
 
-function Typewriter({ text, delay = 0, speed = 70 }: { text: string; delay?: number; speed?: number }) {
+const PHRASES = [
+  "experiências digitais",
+  "interfaces memoráveis",
+  "produtos com alma",
+  "apps que encantam",
+  "agentes de IA humanos",
+];
+
+function Typewriter({
+  phrases,
+  typeSpeed = 70,
+  deleteSpeed = 35,
+  holdMs = 1600,
+  startDelay = 500,
+}: {
+  phrases: string[];
+  typeSpeed?: number;
+  deleteSpeed?: number;
+  holdMs?: number;
+  startDelay?: number;
+}) {
+  const [index, setIndex] = useState(0);
   const [out, setOut] = useState("");
-  const [started, setStarted] = useState(false);
+  const [phase, setPhase] = useState<"idle" | "typing" | "holding" | "deleting">("idle");
 
   useEffect(() => {
-    const t = setTimeout(() => setStarted(true), delay);
+    const t = setTimeout(() => setPhase("typing"), startDelay);
     return () => clearTimeout(t);
-  }, [delay]);
+  }, [startDelay]);
 
   useEffect(() => {
-    if (!started) return;
-    if (out.length >= text.length) return;
-    const t = setTimeout(() => setOut(text.slice(0, out.length + 1)), speed);
-    return () => clearTimeout(t);
-  }, [started, out, text, speed]);
+    const current = phrases[index];
+    let t: ReturnType<typeof setTimeout>;
+    if (phase === "typing") {
+      if (out.length < current.length) {
+        t = setTimeout(() => setOut(current.slice(0, out.length + 1)), typeSpeed);
+      } else {
+        t = setTimeout(() => setPhase("deleting"), holdMs);
+      }
+    } else if (phase === "deleting") {
+      if (out.length > 0) {
+        t = setTimeout(() => setOut(current.slice(0, out.length - 1)), deleteSpeed);
+      } else {
+        setIndex((i) => (i + 1) % phrases.length);
+        setPhase("typing");
+      }
+    }
+    return () => clearTimeout(t!);
+  }, [phase, out, index, phrases, typeSpeed, deleteSpeed, holdMs]);
 
   return (
-    <span className="text-gradient-primary inline-block">
-      {out}
+    <span className="text-gradient-primary inline-block min-h-[1.1em]">
+      {out || "\u00A0"}
       <span
         className="inline-block w-[3px] md:w-[4px] h-[0.85em] align-[-0.1em] ml-1 bg-primary animate-pulse"
         aria-hidden
