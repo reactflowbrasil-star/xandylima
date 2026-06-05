@@ -14,12 +14,33 @@ const stats = [
 export function About() {
   return (
     <section id="sobre" className="section-padding relative">
-      <div className="container-max grid lg:grid-cols-[1fr_1.3fr] gap-16">
-        <div>
-          <span className="eyebrow">Sobre mim</span>
-          <h2 className="mt-4 font-display font-bold text-4xl md:text-5xl leading-tight">
-            Soluções centradas no <span className="text-gradient-primary">usuário</span>, construídas com técnica e alma.
-          </h2>
+      <div className="container-max grid lg:grid-cols-[1fr_1.3fr] gap-16 items-start">
+        <div className="space-y-8">
+          <div>
+            <span className="eyebrow">Sobre mim</span>
+            <h2 className="mt-4 font-display font-bold text-4xl md:text-5xl leading-tight">
+              Soluções centradas no <span className="text-gradient-primary">usuário</span>, construídas com técnica e alma.
+            </h2>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative group"
+          >
+            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/30 via-primary/10 to-transparent blur-2xl opacity-70 group-hover:opacity-100 transition-opacity" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-elegant">
+              <img
+                src={aboutPhoto}
+                alt="Alexandre de Lima Cardoso no estúdio"
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
+            </div>
+          </motion.div>
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
