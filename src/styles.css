@@ -205,14 +205,6 @@
     box-shadow: var(--shadow-glow);
   }
 
-  .portfolio-carousel {
-    scrollbar-width: none;
-    scroll-behavior: smooth;
-    overscroll-behavior-x: contain;
-  }
-  .portfolio-carousel::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 @keyframes float {

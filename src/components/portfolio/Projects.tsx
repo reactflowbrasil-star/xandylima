@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Eye, FileText, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ChevronUp, Eye, FileText, X } from "lucide-react";
 import { localProjects } from "./localProjects";
 import triboCamisetas from "@/assets/tribo-camisetas.jpg.asset.json";
 import triboBranding from "@/assets/tribo-branding.jpg.asset.json";
@@ -42,6 +42,7 @@ const featuredProjects: Project[] = [
 const projects: Project[] = [...featuredProjects, ...localProjects];
 
 const filters = ["Todos", "Branding", "Identidade Visual", "Editorial", "Social Media"] as const;
+const PAGE_SIZE = 6;
 
 function ProjectCard({ project: p, idx, onOpen }: { project: Project; idx: number; onOpen: () => void }) {
   const ref = useRef<HTMLButtonElement>(null);
@@ -93,7 +94,7 @@ function ProjectCard({ project: p, idx, onOpen }: { project: Project; idx: numbe
       transition={{ duration: 0.45, delay: Math.min(idx, 8) * 0.04 }}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       whileHover={{ y: -6 }}
-      className="card-project group relative h-full min-h-[430px] w-[82vw] max-w-[360px] shrink-0 snap-center text-left will-change-transform sm:w-[360px] lg:w-[390px]"
+      className="card-project group relative h-full min-h-[390px] w-full text-left will-change-transform"
       aria-label={`Abrir projeto ${p.title}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -163,43 +164,50 @@ function ProjectCard({ project: p, idx, onOpen }: { project: Project; idx: numbe
 export function Projects() {
   const [active, setActive] = useState<(typeof filters)[number]>("Todos");
   const [modal, setModal] = useState<Project | null>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const [page, setPage] = useState(0);
   const pausedRef = useRef(false);
 
   const filtered = active === "Todos" ? projects : projects.filter((p) => p.tag === active);
-  const carouselProjects = filtered.length > 3 ? [...filtered, ...filtered] : filtered;
+  const pages = useMemo(() => {
+    const chunks: Project[][] = [];
+    for (let i = 0; i < filtered.length; i += PAGE_SIZE) {
+      chunks.push(filtered.slice(i, i + PAGE_SIZE));
+    }
+    return chunks;
+  }, [filtered]);
+  const pageCount = pages.length;
+  const currentPage = pages[page] ?? [];
 
   useEffect(() => {
-    const el = carouselRef.current;
-    if (!el) return;
+    setPage(0);
+  }, [active]);
 
-    el.scrollLeft = 0;
+  useEffect(() => {
+    if (page >= pageCount) {
+      setPage(0);
+    }
+  }, [page, pageCount]);
 
+  useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion || filtered.length <= 3) return;
+    if (prefersReducedMotion || pageCount <= 1 || modal) return;
 
-    let frame = 0;
-    let last = performance.now();
-    const speed = 0.035;
-
-    const tick = (now: number) => {
-      const delta = now - last;
-      last = now;
-
+    const interval = window.setInterval(() => {
       if (!pausedRef.current) {
-        el.scrollLeft += delta * speed;
-        const halfway = el.scrollWidth / 2;
-        if (el.scrollLeft >= halfway) {
-          el.scrollLeft -= halfway;
-        }
+        setPage((current) => (current + 1) % pageCount);
       }
+    }, 6500);
 
-      frame = requestAnimationFrame(tick);
-    };
+    return () => window.clearInterval(interval);
+  }, [pageCount, modal]);
 
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [active, filtered.length]);
+  const goToPage = (nextPage: number) => {
+    pausedRef.current = true;
+    setPage((nextPage + pageCount) % pageCount);
+    window.setTimeout(() => {
+      pausedRef.current = false;
+    }, 8000);
+  };
 
   return (
     <section id="projetos" className="section-padding relative">
@@ -230,10 +238,8 @@ export function Projects() {
           </div>
         </div>
 
-        <motion.div
-          ref={carouselRef}
-          layout
-          className="portfolio-carousel -mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-8 [perspective:1400px] md:-mx-10 md:px-10 lg:-mx-16 lg:px-16"
+        <div
+          className="relative grid gap-6 lg:grid-cols-[1fr_auto]"
           onMouseEnter={() => {
             pausedRef.current = true;
           }}
@@ -247,12 +253,64 @@ export function Projects() {
             pausedRef.current = false;
           }}
         >
-          <AnimatePresence mode="popLayout">
-            {carouselProjects.map((p, idx) => (
-              <ProjectCard key={`${p.id}-${idx}`} project={p} idx={idx} onOpen={() => setModal(p)} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+          <div className="min-h-[850px] overflow-hidden [perspective:1400px] sm:min-h-[860px] lg:min-h-[900px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${active}-${page}`}
+                initial={{ opacity: 0, y: 56 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -56 }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+              >
+                {currentPage.map((p, idx) => (
+                  <ProjectCard key={p.id} project={p} idx={idx} onOpen={() => setModal(p)} />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {pageCount > 1 && (
+            <div className="flex items-center justify-center gap-3 lg:flex-col">
+              <button
+                type="button"
+                onClick={() => goToPage(page - 1)}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface transition hover:border-primary hover:text-primary"
+                aria-label="Pagina anterior"
+              >
+                <ChevronUp className="h-5 w-5" />
+              </button>
+
+              <div className="flex items-center gap-2 lg:flex-col">
+                {pages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => goToPage(idx)}
+                    className={`h-3 rounded-full transition-all ${
+                      idx === page ? "w-8 bg-primary lg:h-8 lg:w-3" : "w-3 bg-border hover:bg-primary/60"
+                    }`}
+                    aria-label={`Ir para pagina ${idx + 1}`}
+                    aria-current={idx === page ? "page" : undefined}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => goToPage(page + 1)}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface transition hover:border-primary hover:text-primary"
+                aria-label="Proxima pagina"
+              >
+                <ChevronDown className="h-5 w-5" />
+              </button>
+
+              <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground lg:ml-0 lg:[writing-mode:vertical-rl]">
+                {String(page + 1).padStart(2, "0")} / {String(pageCount).padStart(2, "0")}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
 
       <AnimatePresence>
