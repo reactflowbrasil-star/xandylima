@@ -89,10 +89,12 @@ function Typewriter({
   }, [phase, out, index, phrases, typeSpeed, deleteSpeed, holdMs]);
 
   return (
-    <span className="relative inline-block align-baseline">
+    <span className="relative inline-block max-w-full align-baseline">
       {/* invisible sizer keeps the line width stable to prevent layout shift */}
-      <span aria-hidden className="invisible whitespace-pre">{longest}</span>
-      <span className="absolute inset-0 flex items-baseline whitespace-pre">
+      <span aria-hidden className="invisible block whitespace-normal break-words [overflow-wrap:anywhere]">
+        {longest}
+      </span>
+      <span className="absolute inset-0 flex items-baseline break-words [overflow-wrap:anywhere]">
         <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-[length:200%_100%] bg-clip-text text-transparent animate-[shimmer_4s_linear_infinite] drop-shadow-[0_0_28px_oklch(0.68_0.235_38/0.45)]">
           {out}
         </span>
