@@ -18,10 +18,30 @@ const FIRST_APPEAR_DELAY = 2_000;
 const APPEAR_INTERVAL = 3 * 60 * 1_000;
 const VISIBLE_TIME = 12_000;
 
+function shuffleTips(excludeFirst?: number) {
+  const indexes = tips.map((_, index) => index);
+
+  for (let i = indexes.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
+  }
+
+  if (excludeFirst !== undefined && indexes[0] === excludeFirst) {
+    const swapIndex = indexes.findIndex((index) => index !== excludeFirst);
+    if (swapIndex > 0) {
+      [indexes[0], indexes[swapIndex]] = [indexes[swapIndex], indexes[0]];
+    }
+  }
+
+  return indexes;
+}
+
 export function DesignTipAvatar() {
   const [visible, setVisible] = useState(false);
-  const [tipIndex, setTipIndex] = useState(0);
+  const initialQueue = useRef(shuffleTips());
+  const [tipIndex, setTipIndex] = useState(initialQueue.current[0] ?? 0);
   const timers = useRef<number[]>([]);
+  const tipQueue = useRef(initialQueue.current.slice(1));
 
   useEffect(() => {
     const clearTimers = () => {
@@ -36,8 +56,11 @@ export function DesignTipAvatar() {
         window.setTimeout(() => {
           setVisible(false);
           setTipIndex((current) => {
-            const next = Math.floor(Math.random() * tips.length);
-            return next === current ? (next + 1) % tips.length : next;
+            if (tipQueue.current.length === 0) {
+              tipQueue.current = shuffleTips(current);
+            }
+
+            return tipQueue.current.shift() ?? current;
           });
         }, VISIBLE_TIME)
       );
