@@ -89,10 +89,12 @@ function Typewriter({
   }, [phase, out, index, phrases, typeSpeed, deleteSpeed, holdMs]);
 
   return (
-    <span className="relative inline-block align-baseline">
+    <span className="relative inline-block max-w-full align-baseline">
       {/* invisible sizer keeps the line width stable to prevent layout shift */}
-      <span aria-hidden className="invisible whitespace-pre">{longest}</span>
-      <span className="absolute inset-0 flex items-baseline whitespace-pre">
+      <span aria-hidden className="invisible block whitespace-normal break-words [overflow-wrap:anywhere]">
+        {longest}
+      </span>
+      <span className="absolute inset-0 flex items-baseline break-words [overflow-wrap:anywhere]">
         <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-[length:200%_100%] bg-clip-text text-transparent animate-[shimmer_4s_linear_infinite] drop-shadow-[0_0_28px_oklch(0.68_0.235_38/0.45)]">
           {out}
         </span>
@@ -106,7 +108,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative isolate min-h-screen overflow-hidden bg-background pt-28 pb-16 md:pt-32 lg:pt-36"
+      className="relative isolate min-h-screen overflow-hidden bg-background pt-24 pb-12 sm:pt-28 sm:pb-16 md:pt-32 lg:pt-36"
     >
       {/* Portrait background — locked, no transforms */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -121,7 +123,7 @@ export function Hero() {
 
       {/* Cinematic overlays */}
       <div
-        className="absolute inset-x-0 top-0 z-[1] h-[360px] pointer-events-none"
+        className="absolute inset-x-0 top-0 z-[1] h-[280px] sm:h-[360px] pointer-events-none"
         style={{
           background:
             "radial-gradient(ellipse at top right, oklch(0.68 0.235 38 / 0.32), transparent 58%), radial-gradient(ellipse at top left, oklch(0.68 0.235 38 / 0.12), transparent 48%)",
@@ -129,26 +131,26 @@ export function Hero() {
       />
       <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-r from-background via-background/82 to-background/10" />
       <div className="absolute inset-0 z-[3] pointer-events-none bg-gradient-to-b from-background/35 via-background/10 to-background" />
-      <div className="absolute inset-y-0 left-0 z-[4] w-[72%] pointer-events-none bg-gradient-to-r from-background via-background/92 to-transparent md:w-[58%]" />
-      <div className="absolute bottom-0 left-0 right-0 z-[5] h-48 pointer-events-none bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute inset-y-0 left-0 z-[4] w-[88%] pointer-events-none bg-gradient-to-r from-background via-background/92 to-transparent md:w-[58%]" />
+      <div className="absolute bottom-0 left-0 right-0 z-[5] h-36 sm:h-48 pointer-events-none bg-gradient-to-t from-background to-transparent" />
 
       {/* Ambient lights */}
-      <div className="absolute -left-36 top-1/4 z-[6] h-[520px] w-[520px] rounded-full bg-primary/20 blur-[130px] animate-pulse-glow pointer-events-none" />
-      <div className="absolute -right-24 bottom-10 z-[6] h-[360px] w-[360px] rounded-full bg-primary/12 blur-[110px] pointer-events-none" />
+      <div className="absolute -left-36 top-1/4 z-[6] h-[320px] w-[320px] sm:h-[520px] sm:w-[520px] rounded-full bg-primary/20 blur-[110px] sm:blur-[130px] animate-pulse-glow pointer-events-none" />
+      <div className="absolute -right-24 bottom-10 z-[6] h-[220px] w-[220px] sm:h-[360px] sm:w-[360px] rounded-full bg-primary/12 blur-[90px] sm:blur-[110px] pointer-events-none" />
 
-      <div className="container-max relative z-10 grid min-h-[calc(100vh-9rem)] w-full items-center gap-12 px-6 md:px-10 lg:grid-cols-[1.08fr_0.92fr] lg:px-16">
-        <div className="max-w-3xl">
+      <div className="container-max relative z-10 grid min-h-[calc(100vh-7rem)] sm:min-h-[calc(100vh-9rem)] w-full items-center gap-10 px-5 sm:px-6 md:px-10 lg:grid-cols-[1.08fr_0.92fr] lg:px-16">
+        <div className="w-full max-w-full lg:max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
-            className="mb-7 inline-flex items-center gap-3 rounded-full border border-white/10 bg-background/45 px-4 py-2.5 shadow-card backdrop-blur-xl"
+            className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-background/45 px-3 py-2 shadow-card backdrop-blur-xl sm:mb-7 sm:gap-3 sm:px-4 sm:py-2.5"
           >
-            <span className="relative flex h-2.5 w-2.5">
+            <span className="relative flex h-2.5 w-2.5 shrink-0">
               <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
             </span>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/80">
+            <span className="truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/80 sm:text-[11px] sm:tracking-[0.22em]">
               Disponível para novos projetos
             </span>
           </motion.div>
@@ -157,7 +159,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.08 }}
-            className="font-display text-[3.35rem] font-black leading-[0.95] tracking-[-0.06em] text-foreground sm:text-7xl md:text-8xl lg:text-[6.7rem]"
+            className="font-display text-[clamp(2.1rem,9.2vw,3.3rem)] font-black leading-[0.98] tracking-[-0.05em] text-foreground [word-break:break-word] [overflow-wrap:anywhere] sm:text-6xl sm:leading-[0.95] sm:tracking-[-0.06em] md:text-7xl lg:text-[6.2rem] xl:text-[6.7rem]"
           >
             Criando
             <br />
@@ -172,7 +174,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.25 }}
-            className="mt-8 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-xl"
+            className="mt-6 max-w-full text-[0.95rem] leading-relaxed text-muted-foreground sm:mt-8 sm:max-w-2xl sm:text-base md:text-xl"
           >
             Sou <span className="font-semibold text-foreground">Alexandre de Lima Cardoso</span> —
             Desenvolvedor Full-Stack Sênior e UX/UI Designer. Transformo ideias em landing pages,
@@ -183,9 +185,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.38 }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
+            className="mt-7 flex w-full flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center"
           >
-            <a href="#projetos" className="btn-primary group min-h-14 px-8 text-sm sm:text-base">
+            <a href="#projetos" className="btn-primary group min-h-14 w-full justify-center px-6 text-sm sm:w-auto sm:px-8 sm:text-base">
               Ver meus projetos
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
@@ -193,7 +195,7 @@ export function Hero() {
               href={WHATSAPP}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ghost group min-h-14 px-8 text-sm sm:text-base"
+              className="btn-ghost group min-h-14 w-full justify-center px-6 text-sm sm:w-auto sm:px-8 sm:text-base"
             >
               <MessageCircle className="h-5 w-5" />
               Conversar agora
@@ -204,14 +206,14 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.52 }}
-            className="mt-10 grid max-w-2xl grid-cols-3 overflow-hidden rounded-3xl border border-white/10 bg-background/35 backdrop-blur-xl"
+            className="mt-8 grid w-full max-w-full grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-background/35 backdrop-blur-xl sm:mt-10 sm:max-w-2xl sm:rounded-3xl"
           >
             {HERO_STATS.map((item, index) => (
-              <div key={item.label} className={`p-4 ${index > 0 ? "border-l border-white/10" : ""}`}>
-                <div className="font-display text-2xl font-black text-foreground md:text-3xl">
+              <div key={item.label} className={`p-3 sm:p-4 ${index > 0 ? "border-l border-white/10" : ""}`}>
+                <div className="font-display text-xl font-black leading-tight text-foreground sm:text-2xl md:text-3xl">
                   {item.value}
                 </div>
-                <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground md:text-xs">
+                <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] leading-snug text-muted-foreground sm:text-[10px] sm:tracking-[0.16em] md:text-xs">
                   {item.label}
                 </div>
               </div>
