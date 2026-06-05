@@ -3,7 +3,7 @@ import type { Project } from "./Projects";
 export const localProjects: Project[] = [
   {
     "id": 1001,
-    "title": "001 (1)",
+    "title": "Xtreme Shoes · Tênis",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/001-1.png",
@@ -18,7 +18,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1002,
-    "title": "01",
+    "title": "Vet Nutri · Carla Maion",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/01.jpg",
@@ -33,7 +33,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1003,
-    "title": "1",
+    "title": "Canal 360 · 3D",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/1.jpg",
@@ -48,7 +48,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1004,
-    "title": "02",
+    "title": "Vet Nutri · Monograma",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/02.jpg",
@@ -63,7 +63,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1005,
-    "title": "02",
+    "title": "Vet Nutri · Marca",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/02-2.jpg",
@@ -78,7 +78,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1006,
-    "title": "2",
+    "title": "Canal 360 · Símbolo",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/2.jpg",
@@ -93,7 +93,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1007,
-    "title": "002",
+    "title": "Rocket · Somos Feitos de Design",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/002.png",
@@ -108,7 +108,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1008,
-    "title": "1080x640",
+    "title": "Xtreme Shoes · Símbolo",
     "category": "Social Media",
     "tag": "Social Media",
     "image": "/portfolio/1080x640.jpg",
@@ -123,7 +123,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1009,
-    "title": "Branding",
+    "title": "Rocket · Papelaria",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/branding.jpg",
@@ -138,7 +138,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1010,
-    "title": "Camisetas Masculinas",
+    "title": "Xtreme · Camisetas",
     "category": "Aplicacao de marca",
     "tag": "Branding",
     "image": "/portfolio/camisetas-masculinas.jpg",
@@ -153,7 +153,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1011,
-    "title": "Creative Rocket (1)",
+    "title": "Rio SP · Outdoor",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-1.jpg",
@@ -168,7 +168,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1012,
-    "title": "Creative Rocket (1)",
+    "title": "Almaflora · Identidade",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-1.png",
@@ -183,7 +183,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1013,
-    "title": "Creative Rocket (2)",
+    "title": "Hamburgeria · Identidade Visual",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-2.jpg",
@@ -198,7 +198,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1014,
-    "title": "Creative Rocket (2)",
+    "title": "Identidade · Cartões",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-2.png",
@@ -213,7 +213,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1015,
-    "title": "Creative Rocket (3)",
+    "title": "Rio SP · Busdoor",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-3.jpg",
@@ -228,7 +228,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1016,
-    "title": "Creative Rocket (3)",
+    "title": "Cafeteria · Copos",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-3.png",
@@ -243,7 +243,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1017,
-    "title": "Creative Rocket (4)",
+    "title": "Mister · Divulgação",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-4.jpg",
@@ -258,7 +258,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1018,
-    "title": "Creative Rocket (4)",
+    "title": "Camiseta · Estampa",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-4.png",
@@ -273,7 +273,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1019,
-    "title": "Creative Rocket (5)",
+    "title": "Bianco & Machado · Advocacia",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-5.png",
@@ -288,7 +288,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1020,
-    "title": "Creative Rocket (6)",
+    "title": "Mania de Fruta · Identidade",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-6.png",
@@ -303,7 +303,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1021,
-    "title": "Creative Rocket (7)",
+    "title": "Vestuário · Mockups",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-7.png",
@@ -318,7 +318,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1022,
-    "title": "Creative Rocket (8)",
+    "title": "Alvitre · Marca",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-8.png",
@@ -333,7 +333,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1023,
-    "title": "Creative Rocket (9)",
+    "title": "Almaflora · Aplicações",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-9.png",
@@ -348,7 +348,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1024,
-    "title": "Creative Rocket (10)",
+    "title": "Enlevos · Identidade",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-10.png",
@@ -363,7 +363,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1025,
-    "title": "Creative Rocket (11)",
+    "title": "Emblema Esportivo · Águia",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-11.png",
@@ -378,7 +378,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1026,
-    "title": "Creative Rocket (12)",
+    "title": "Flecha · Identidade",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-12.png",
@@ -393,7 +393,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1027,
-    "title": "Creative Rocket (13)",
+    "title": "Daily · Aplicações",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-13.png",
@@ -408,7 +408,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1028,
-    "title": "Creative Rocket (14)",
+    "title": "Papelaria · Identidade",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-14.png",
@@ -423,7 +423,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1029,
-    "title": "Creative Rocket (15)",
+    "title": "Cafeteria · Campanha",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-15.png",
@@ -438,7 +438,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1030,
-    "title": "Creative Rocket (16)",
+    "title": "Mimos · Identidade",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-16.png",
@@ -453,7 +453,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1031,
-    "title": "Creative Rocket (17)",
+    "title": "Cosmopolita Pizza · Logo",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-17.png",
@@ -468,7 +468,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1032,
-    "title": "Creative Rocket (18)",
+    "title": "Lançamento · Social Media",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-18.png",
@@ -483,7 +483,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1033,
-    "title": "Creative Rocket (19)",
+    "title": "Monograma A · Branding",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-19.png",
@@ -498,7 +498,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1034,
-    "title": "Creative Rocket (20)",
+    "title": "Social Media · Campanha",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-20.png",
@@ -513,7 +513,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1035,
-    "title": "Creative Rocket (21)",
+    "title": "Almaflora · Social Media",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-21.png",
@@ -528,7 +528,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1036,
-    "title": "Creative Rocket (22)",
+    "title": "Daily · Logo",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-22.png",
@@ -543,7 +543,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1037,
-    "title": "Creative Rocket (23)",
+    "title": "Original Lhama · Identidade",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-23.png",
@@ -558,7 +558,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1038,
-    "title": "Creative Rocket (24)",
+    "title": "Social Media · Mockup",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-24.png",
@@ -573,7 +573,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1039,
-    "title": "Creative Rocket (25)",
+    "title": "Vestuário · Mockup",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-25.png",
@@ -588,7 +588,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1040,
-    "title": "Creative Rocket (26)",
+    "title": "Tribo Produções · Camiseta",
     "category": "Branding",
     "tag": "Branding",
     "image": "/portfolio/creative-rocket-26.png",
@@ -603,7 +603,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1041,
-    "title": "Frente",
+    "title": "Boné · Frente",
     "category": "Aplicacao de marca",
     "tag": "Branding",
     "image": "/portfolio/frente.jpg",
@@ -618,7 +618,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1042,
-    "title": "Lateral",
+    "title": "Boné · Lateral",
     "category": "Aplicacao de marca",
     "tag": "Branding",
     "image": "/portfolio/lateral.jpg",
@@ -633,7 +633,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1043,
-    "title": "Logo Canal 360",
+    "title": "Canal 360 · Logo",
     "category": "Documento de portfolio",
     "tag": "Editorial",
     "image": null,
@@ -648,7 +648,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1044,
-    "title": "Logo Definida2",
+    "title": "Xtreme Shoes · Logo Horizontal",
     "category": "Identidade Visual",
     "tag": "Identidade Visual",
     "image": "/portfolio/logo-definida2.png",
@@ -663,7 +663,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1045,
-    "title": "Portfoliorocket (1)",
+    "title": "Portfólio Rocket · Apresentação",
     "category": "Documento de portfolio",
     "tag": "Editorial",
     "image": null,
@@ -678,7 +678,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1046,
-    "title": "Portfoliorocket",
+    "title": "Portfólio Rocket",
     "category": "Documento de portfolio",
     "tag": "Editorial",
     "image": null,
@@ -693,7 +693,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1047,
-    "title": "Proposta",
+    "title": "Proposta Comercial",
     "category": "Documento de portfolio",
     "tag": "Editorial",
     "image": null,
@@ -708,7 +708,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1048,
-    "title": "Storyes 001",
+    "title": "Miss Goiás · Teaser",
     "category": "Social Media",
     "tag": "Social Media",
     "image": "/portfolio/storyes-001.png",
@@ -723,7 +723,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1049,
-    "title": "Storyes 002",
+    "title": "Miss Goiás · Entrevistas",
     "category": "Social Media",
     "tag": "Social Media",
     "image": "/portfolio/storyes-002.jpg",
@@ -738,7 +738,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1050,
-    "title": "Storyes 004",
+    "title": "Miss Goiás · Story",
     "category": "Social Media",
     "tag": "Social Media",
     "image": "/portfolio/storyes-004.jpg",
@@ -753,7 +753,7 @@ export const localProjects: Project[] = [
   },
   {
     "id": 1051,
-    "title": "VetNutri",
+    "title": "Vet Nutri · Cordão",
     "category": "Identidade Visual",
     "tag": "Identidade Visual",
     "image": "/portfolio/vetnutri.jpg",
