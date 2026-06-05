@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { ArrowUpRight, Eye, X } from "lucide-react";
 import triboCamisetas from "@/assets/tribo-camisetas.jpg.asset.json";
 import triboBranding from "@/assets/tribo-branding.jpg.asset.json";
 import missGoias from "@/assets/miss-goias.jpg.asset.json";
