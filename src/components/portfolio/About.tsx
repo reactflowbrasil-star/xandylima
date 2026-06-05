@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Heart, Code2, Users, Brain } from "lucide-react";
+import aboutPhotoAsset from "@/assets/alexandre-about.png.asset.json";
+
+const aboutPhoto = aboutPhotoAsset.url;
 
 const stats = [
   { icon: Code2, value: "30+", label: "Anos estudando tecnologia" },
