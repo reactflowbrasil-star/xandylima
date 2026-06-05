@@ -12,6 +12,7 @@ import { CTA } from "@/components/portfolio/CTA";
 import { Footer } from "@/components/portfolio/Footer";
 import { FloatingWhatsApp } from "@/components/portfolio/FloatingWhatsApp";
 import { IntroVideo } from "@/components/portfolio/IntroVideo";
+import { DesignTipAvatar } from "@/components/portfolio/DesignTipAvatar";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -56,6 +57,7 @@ function Index() {
       <CTA />
       <Footer />
       <FloatingWhatsApp />
+      <DesignTipAvatar />
     </main>
   );
 }
