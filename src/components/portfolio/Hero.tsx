@@ -108,13 +108,14 @@ export function Hero() {
       id="home"
       className="relative isolate min-h-screen overflow-hidden bg-background pt-28 pb-16 md:pt-32 lg:pt-36"
     >
-      {/* Portrait background */}
+      {/* Portrait background — locked, no transforms */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <img
           src={heroBg}
           alt=""
           aria-hidden="true"
-          className="h-full w-full object-cover object-[68%_top] opacity-90 sm:object-[74%_top] lg:object-right-top"
+          draggable={false}
+          className="absolute inset-0 h-full w-full select-none object-cover object-[72%_top] opacity-90 [transform:translateZ(0)] [backface-visibility:hidden] [will-change:auto]"
         />
       </div>
 
