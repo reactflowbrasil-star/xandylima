@@ -9,6 +9,7 @@ const links = [
   { href: "#contato", label: "Contato" },
 ];
 
+const LOGO_URL = "https://growmoneydigital.com.br/alexandre/logo.png";
 const WHATSAPP = "https://wa.me/5562981321845?text=Ol%C3%A1%20Alexandre%2C%20vim%20pelo%20seu%20portf%C3%B3lio!";
 
 export function Navbar() {
@@ -33,14 +34,20 @@ export function Navbar() {
           scrolled ? "glass shadow-elegant" : ""
         }`}
       >
-        <a href="#home" className="flex items-center gap-2.5 group">
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-glow font-display font-bold text-primary-foreground">
-            A
-            <span className="absolute -inset-1 -z-10 rounded-xl bg-primary/40 blur-md opacity-60 group-hover:opacity-100 transition" />
+        <a href="#home" className="group flex items-center gap-3" aria-label="Alexandre Lima - início">
+          <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-background/35 ring-1 ring-white/10 backdrop-blur-xl transition-transform duration-300 group-hover:scale-105">
+            <img
+              src={LOGO_URL}
+              alt="Alexandre Lima"
+              className="h-8 w-8 object-contain"
+              loading="eager"
+              decoding="async"
+            />
+            <span className="absolute -inset-1 -z-10 rounded-2xl bg-primary/35 blur-md opacity-55 transition group-hover:opacity-100" />
           </span>
           <div className="hidden sm:flex flex-col leading-none">
-            <span className="font-display font-bold text-sm">Alexandre Lima</span>
-            <span className="text-[10px] text-muted-foreground tracking-wider uppercase">UX/UI · Full-Stack</span>
+            <span className="font-display text-sm font-bold">Alexandre Lima</span>
+            <span className="text-[10px] uppercase tracking-wider text-muted-foreground">UX/UI · Full-Stack</span>
           </div>
         </a>
 
