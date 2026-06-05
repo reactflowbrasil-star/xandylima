@@ -79,7 +79,7 @@ export function DesignTipAvatar() {
           <motion.div
             aria-hidden
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.7 }}
+            animate={{ opacity: 0.8 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
             className="pointer-events-none fixed inset-0 z-40 bg-black"
