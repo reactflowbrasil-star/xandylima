@@ -86,10 +86,10 @@ export function DesignTipAvatar() {
             <motion.img
               src={BASE_PHOTO_URL}
               alt="Alexandre Lima"
-              initial={{ opacity: 0, y: 120 }}
+              initial={{ opacity: 0, y: 72 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 120 }}
-              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: 72 }}
+              transition={{ duration: 1.35, ease: [0.16, 1, 0.3, 1] }}
               className="h-24 w-auto object-contain drop-shadow-[0_12px_28px_oklch(0_0_0/0.55)] sm:h-32"
               loading="lazy"
               decoding="async"
