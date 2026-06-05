@@ -46,8 +46,8 @@ export function Navbar() {
             alt="Alexandre Lima"
             className={`w-auto object-contain transition-all duration-500 ${
               scrolled
-                ? "h-12 max-w-[70vw] sm:h-14 sm:max-w-none md:h-16 lg:h-[76px]"
-                : "h-16 max-w-[70vw] sm:h-20 sm:max-w-none md:h-24 lg:h-28 xl:h-32"
+                ? "h-8 max-w-[58vw] sm:h-10 sm:max-w-none md:h-12 lg:h-14"
+                : "h-12 max-w-[58vw] sm:h-14 sm:max-w-none md:h-16 lg:h-20 xl:h-24"
             }`}
             loading="eager"
             decoding="async"
