@@ -30,25 +30,28 @@ export function Navbar() {
       }`}
     >
       <div
-        className={`container-max mx-6 md:mx-10 lg:mx-auto flex items-center justify-between px-5 md:px-7 py-3 rounded-full transition-all duration-500 ${
-          scrolled ? "glass shadow-elegant" : ""
+        className={`container-max mx-4 sm:mx-6 md:mx-10 lg:mx-auto flex items-center justify-between rounded-full transition-all duration-500 ${
+          scrolled
+            ? "glass px-4 py-2.5 shadow-elegant md:px-6"
+            : "px-2 py-2 md:px-4 md:py-3"
         }`}
       >
-        <a href="#home" className="group flex items-center gap-3" aria-label="Alexandre Lima - início">
-          <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-background/35 ring-1 ring-white/10 backdrop-blur-xl transition-transform duration-300 group-hover:scale-105">
-            <img
-              src={LOGO_URL}
-              alt="Alexandre Lima"
-              className="h-8 w-8 object-contain"
-              loading="eager"
-              decoding="async"
-            />
-            <span className="absolute -inset-1 -z-10 rounded-2xl bg-primary/35 blur-md opacity-55 transition group-hover:opacity-100" />
-          </span>
-          <div className="hidden sm:flex flex-col leading-none">
-            <span className="font-display text-sm font-bold">Alexandre Lima</span>
-            <span className="text-[10px] uppercase tracking-wider text-muted-foreground">UX/UI · Full-Stack</span>
-          </div>
+        <a
+          href="#home"
+          className="group flex min-w-0 items-center"
+          aria-label="Alexandre Lima - início"
+        >
+          <img
+            src={LOGO_URL}
+            alt="Alexandre Lima"
+            className={`w-auto object-contain transition-all duration-500 ${
+              scrolled
+                ? "h-9 max-w-[190px] sm:h-10 sm:max-w-[240px] md:h-11 md:max-w-[300px]"
+                : "h-12 max-w-[230px] sm:h-14 sm:max-w-[320px] md:h-16 md:max-w-[390px] lg:h-[4.5rem] lg:max-w-[460px]"
+            }`}
+            loading="eager"
+            decoding="async"
+          />
         </a>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -63,7 +66,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <a
             href={WHATSAPP}
             target="_blank"
@@ -75,7 +78,7 @@ export function Navbar() {
           </a>
           <button
             onClick={() => setOpen((s) => !s)}
-            className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-border"
+            className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-border bg-background/35 backdrop-blur-xl"
             aria-label="Menu"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
