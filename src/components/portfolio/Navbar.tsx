@@ -30,10 +30,10 @@ export function Navbar() {
       }`}
     >
       <div
-        className={`container-max mx-4 sm:mx-6 md:mx-10 lg:mx-auto flex items-center justify-between rounded-full transition-all duration-500 ${
+        className={`container-max mx-3 sm:mx-5 md:mx-8 lg:mx-auto flex items-center justify-between rounded-full transition-all duration-500 ${
           scrolled
             ? "glass px-4 py-2.5 shadow-elegant md:px-6"
-            : "px-2 py-2 md:px-4 md:py-3"
+            : "px-1.5 py-2 md:px-3 md:py-3"
         }`}
       >
         <a
@@ -46,15 +46,15 @@ export function Navbar() {
             alt="Alexandre Lima"
             className={`w-auto object-contain transition-all duration-500 ${
               scrolled
-                ? "h-9 max-w-[190px] sm:h-10 sm:max-w-[240px] md:h-11 md:max-w-[300px]"
-                : "h-12 max-w-[230px] sm:h-14 sm:max-w-[320px] md:h-16 md:max-w-[390px] lg:h-[4.5rem] lg:max-w-[460px]"
+                ? "h-11 max-w-[250px] sm:h-12 sm:max-w-[330px] md:h-14 md:max-w-[410px] lg:h-16 lg:max-w-[500px]"
+                : "h-16 max-w-[300px] sm:h-20 sm:max-w-[430px] md:h-24 md:max-w-[560px] lg:h-28 lg:max-w-[680px] xl:h-32 xl:max-w-[760px]"
             }`}
             loading="eager"
             decoding="async"
           />
         </a>
 
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden xl:flex items-center gap-1">
           {links.map((l) => (
             <a
               key={l.href}
@@ -78,7 +78,7 @@ export function Navbar() {
           </a>
           <button
             onClick={() => setOpen((s) => !s)}
-            className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-border bg-background/35 backdrop-blur-xl"
+            className="xl:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-border bg-background/35 backdrop-blur-xl"
             aria-label="Menu"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -88,7 +88,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden mx-6 mt-3 glass rounded-2xl p-4 animate-fade-in">
+        <div className="xl:hidden mx-6 mt-3 glass rounded-2xl p-4 animate-fade-in">
           <nav className="flex flex-col">
             {links.map((l) => (
               <a
