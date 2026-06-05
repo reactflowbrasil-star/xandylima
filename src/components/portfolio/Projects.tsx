@@ -73,35 +73,10 @@ export function Projects() {
           </div>
         </div>
 
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 [perspective:1400px]">
           <AnimatePresence mode="popLayout">
             {filtered.map((p, idx) => (
-              <motion.button
-                layout
-                key={p.id}
-                onClick={() => setModal(p)}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className={`card-project text-left group ${idx % 5 === 0 ? "lg:row-span-2" : ""}`}
-              >
-                <div className={`relative overflow-hidden ${idx % 5 === 0 ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
-                  <img src={p.image} alt={p.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80" />
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full glass text-[10px] uppercase tracking-wider font-semibold">
-                    {p.tag}
-                  </div>
-                  <div className="absolute top-4 right-4 h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all -translate-y-2 group-hover:translate-y-0">
-                    <ArrowUpRight className="w-5 h-5" />
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="text-xs text-muted-foreground uppercase tracking-wider">{p.category}</div>
-                  <h3 className="mt-1 font-display font-bold text-xl">{p.title}</h3>
-                  <div className="mt-3 text-sm text-primary font-semibold">{p.kpi}</div>
-                </div>
-              </motion.button>
+              <ProjectCard key={p.id} project={p} idx={idx} onOpen={() => setModal(p)} />
             ))}
           </AnimatePresence>
         </motion.div>
