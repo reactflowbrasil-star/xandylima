@@ -14,7 +14,7 @@ const tips = [
   "Um bom posicionamento troca frases genericas por uma diferenca facil de lembrar.",
 ];
 
-const FIRST_APPEAR_DELAY = 2_000;
+const FIRST_APPEAR_DELAY = 5_000;
 const APPEAR_INTERVAL = 3 * 60 * 1_000;
 const VISIBLE_TIME = 12_000;
 
