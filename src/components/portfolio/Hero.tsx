@@ -38,9 +38,9 @@ const SPECIALTIES = [
 
 function Typewriter({
   phrases,
-  typeSpeed = 70,
-  deleteSpeed = 35,
-  holdMs = 1600,
+  typeSpeed = 65,
+  deleteSpeed = 32,
+  holdMs = 1800,
   startDelay = 500,
 }: {
   phrases: string[];
@@ -53,6 +53,9 @@ function Typewriter({
   const [out, setOut] = useState("");
   const [phase, setPhase] = useState<"idle" | "typing" | "deleting">("idle");
 
+  // Longest phrase reserves the line width so layout never shifts
+  const longest = phrases.reduce((a, b) => (a.length >= b.length ? a : b));
+
   useEffect(() => {
     const t = setTimeout(() => setPhase("typing"), startDelay);
     return () => clearTimeout(t);
@@ -64,7 +67,8 @@ function Typewriter({
 
     if (phase === "typing") {
       if (out.length < current.length) {
-        t = setTimeout(() => setOut(current.slice(0, out.length + 1)), typeSpeed);
+        const jitter = Math.random() * 40 - 10;
+        t = setTimeout(() => setOut(current.slice(0, out.length + 1)), typeSpeed + jitter);
       } else {
         t = setTimeout(() => setPhase("deleting"), holdMs);
       }
@@ -85,9 +89,15 @@ function Typewriter({
   }, [phase, out, index, phrases, typeSpeed, deleteSpeed, holdMs]);
 
   return (
-    <span className="inline-flex min-h-[1.1em] items-baseline text-gradient-primary">
-      {out || "\u00A0"}
-      <span className="ml-1 inline-block h-[0.85em] w-[3px] bg-primary align-[-0.1em] animate-pulse md:w-[4px]" />
+    <span className="relative inline-block align-baseline">
+      {/* invisible sizer keeps the line width stable to prevent layout shift */}
+      <span aria-hidden className="invisible whitespace-pre">{longest}</span>
+      <span className="absolute inset-0 flex items-baseline whitespace-pre">
+        <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-[length:200%_100%] bg-clip-text text-transparent animate-[shimmer_4s_linear_infinite] drop-shadow-[0_0_28px_oklch(0.68_0.235_38/0.45)]">
+          {out}
+        </span>
+        <span className="ml-1 inline-block h-[0.85em] w-[3px] rounded-sm bg-primary align-[-0.1em] shadow-[0_0_14px_oklch(0.68_0.235_38/0.9)] animate-pulse md:w-[4px]" />
+      </span>
     </span>
   );
 }
@@ -98,13 +108,14 @@ export function Hero() {
       id="home"
       className="relative isolate min-h-screen overflow-hidden bg-background pt-28 pb-16 md:pt-32 lg:pt-36"
     >
-      {/* Portrait background */}
+      {/* Portrait background — locked, no transforms */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <img
           src={heroBg}
           alt=""
           aria-hidden="true"
-          className="h-full w-full object-cover object-[68%_top] opacity-90 sm:object-[74%_top] lg:object-right-top"
+          draggable={false}
+          className="absolute inset-0 h-full w-full select-none object-cover object-[72%_top] opacity-90 [transform:translateZ(0)] [backface-visibility:hidden] [will-change:auto]"
         />
       </div>
 

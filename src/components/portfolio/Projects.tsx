@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { ArrowUpRight, Eye, X } from "lucide-react";
 import triboCamisetas from "@/assets/tribo-camisetas.jpg.asset.json";
 import triboBranding from "@/assets/tribo-branding.jpg.asset.json";
 import missGoias from "@/assets/miss-goias.jpg.asset.json";
@@ -38,6 +38,116 @@ const projects: Project[] = [
 
 const filters = ["Todos", "Branding", "Identidade Visual", "Editorial", "Social Media"] as const;
 
+function ProjectCard({ project: p, idx, onOpen }: { project: Project; idx: number; onOpen: () => void }) {
+  const ref = useRef<HTMLButtonElement>(null);
+  const [hovering, setHovering] = useState(false);
+
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+
+  const sx = useSpring(mx, { stiffness: 180, damping: 18, mass: 0.4 });
+  const sy = useSpring(my, { stiffness: 180, damping: 18, mass: 0.4 });
+
+  const rotateX = useTransform(sy, [-0.5, 0.5], [8, -8]);
+  const rotateY = useTransform(sx, [-0.5, 0.5], [-10, 10]);
+  const imgX = useTransform(sx, [-0.5, 0.5], [-14, 14]);
+  const imgY = useTransform(sy, [-0.5, 0.5], [-14, 14]);
+  const glareX = useTransform(sx, [-0.5, 0.5], ["0%", "100%"]);
+  const glareY = useTransform(sy, [-0.5, 0.5], ["0%", "100%"]);
+  const glare = useTransform(
+    [glareX, glareY] as const,
+    ([x, y]) =>
+      `radial-gradient(360px circle at ${x} ${y}, rgba(255,255,255,0.35), transparent 55%)`
+  );
+
+  const handleMove = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  };
+
+  const reset = () => {
+    mx.set(0);
+    my.set(0);
+    setHovering(false);
+  };
+
+  const isFeatured = idx % 5 === 0;
+
+  return (
+    <motion.button
+      ref={ref}
+      layout
+      onClick={onOpen}
+      onMouseMove={handleMove}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={reset}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.92 }}
+      transition={{ duration: 0.45, delay: idx * 0.05 }}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      whileHover={{ y: -6 }}
+      className={`card-project group relative text-left will-change-transform ${
+        isFeatured ? "lg:row-span-2" : ""
+      }`}
+      aria-label={`Abrir projeto ${p.title}`}
+    >
+      <div className={`relative overflow-hidden ${isFeatured ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
+        <motion.img
+          src={p.image}
+          alt={p.title}
+          loading="lazy"
+          draggable={false}
+          style={{ x: imgX, y: imgY, scale: hovering ? 1.12 : 1 }}
+          transition={{ scale: { duration: 0.6, ease: [0.2, 0.8, 0.2, 1] } }}
+          className="absolute -left-[6%] -top-[6%] h-[112%] w-[112%] object-cover"
+        />
+
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-90" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-primary/40 via-primary/0 to-primary/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-60 mix-blend-overlay"
+          style={{ background: glare }}
+        />
+
+        <div className="absolute left-4 top-4 rounded-full glass px-3 py-1 text-[10px] font-semibold uppercase tracking-wider">
+          {p.tag}
+        </div>
+
+        <div className="absolute right-4 top-4 flex h-10 w-10 -translate-y-2 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 shadow-[0_8px_30px_oklch(0.68_0.235_38/0.55)] transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          <ArrowUpRight className="h-5 w-5" />
+        </div>
+
+        <div className="absolute inset-x-4 bottom-4 flex translate-y-3 items-center justify-between gap-3 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="inline-flex items-center gap-2 rounded-full bg-background/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
+            <Eye className="h-3.5 w-3.5 text-primary" />
+            Ver case
+          </div>
+          <div className="rounded-full bg-primary/15 px-3 py-1.5 text-[11px] font-semibold text-primary backdrop-blur-md">
+            {p.kpi}
+          </div>
+        </div>
+      </div>
+
+      <div className="relative p-5" style={{ transform: "translateZ(20px)" }}>
+        <div className="text-xs uppercase tracking-wider text-muted-foreground">{p.category}</div>
+        <h3 className="mt-1 font-display text-xl font-bold transition-colors duration-300 group-hover:text-primary">
+          {p.title}
+        </h3>
+        <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-primary">
+          <span className="h-px w-6 bg-primary transition-all duration-500 group-hover:w-12" />
+          {p.kpi}
+        </div>
+      </div>
+    </motion.button>
+  );
+}
+
 export function Projects() {
   const [active, setActive] = useState<(typeof filters)[number]>("Todos");
   const [modal, setModal] = useState<Project | null>(null);
@@ -73,35 +183,10 @@ export function Projects() {
           </div>
         </div>
 
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 [perspective:1400px]">
           <AnimatePresence mode="popLayout">
             {filtered.map((p, idx) => (
-              <motion.button
-                layout
-                key={p.id}
-                onClick={() => setModal(p)}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className={`card-project text-left group ${idx % 5 === 0 ? "lg:row-span-2" : ""}`}
-              >
-                <div className={`relative overflow-hidden ${idx % 5 === 0 ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
-                  <img src={p.image} alt={p.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80" />
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full glass text-[10px] uppercase tracking-wider font-semibold">
-                    {p.tag}
-                  </div>
-                  <div className="absolute top-4 right-4 h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all -translate-y-2 group-hover:translate-y-0">
-                    <ArrowUpRight className="w-5 h-5" />
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="text-xs text-muted-foreground uppercase tracking-wider">{p.category}</div>
-                  <h3 className="mt-1 font-display font-bold text-xl">{p.title}</h3>
-                  <div className="mt-3 text-sm text-primary font-semibold">{p.kpi}</div>
-                </div>
-              </motion.button>
+              <ProjectCard key={p.id} project={p} idx={idx} onOpen={() => setModal(p)} />
             ))}
           </AnimatePresence>
         </motion.div>
