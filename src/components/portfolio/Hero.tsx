@@ -38,9 +38,9 @@ const SPECIALTIES = [
 
 function Typewriter({
   phrases,
-  typeSpeed = 65,
-  deleteSpeed = 32,
-  holdMs = 1800,
+  typeSpeed = 62,
+  deleteSpeed = 30,
+  holdMs = 1700,
   startDelay = 500,
 }: {
   phrases: string[];
@@ -53,9 +53,6 @@ function Typewriter({
   const [out, setOut] = useState("");
   const [phase, setPhase] = useState<"idle" | "typing" | "deleting">("idle");
 
-  // Longest phrase reserves the line width so layout never shifts
-  const longest = phrases.reduce((a, b) => (a.length >= b.length ? a : b));
-
   useEffect(() => {
     const t = setTimeout(() => setPhase("typing"), startDelay);
     return () => clearTimeout(t);
@@ -67,8 +64,7 @@ function Typewriter({
 
     if (phase === "typing") {
       if (out.length < current.length) {
-        const jitter = Math.random() * 40 - 10;
-        t = setTimeout(() => setOut(current.slice(0, out.length + 1)), typeSpeed + jitter);
+        t = setTimeout(() => setOut(current.slice(0, out.length + 1)), typeSpeed);
       } else {
         t = setTimeout(() => setPhase("deleting"), holdMs);
       }
@@ -89,17 +85,14 @@ function Typewriter({
   }, [phase, out, index, phrases, typeSpeed, deleteSpeed, holdMs]);
 
   return (
-    <span className="relative inline-block max-w-full align-baseline">
-      {/* invisible sizer keeps the line width stable to prevent layout shift */}
-      <span aria-hidden className="invisible block whitespace-normal break-words [overflow-wrap:anywhere]">
-        {longest}
+    <span className="block min-h-[2.18em] max-w-[12ch] leading-[1.02] text-gradient-primary sm:max-w-[13ch] md:max-w-[14ch] xl:min-h-[1.08em] xl:max-w-none">
+      <span className="break-words [overflow-wrap:anywhere]">
+        {out || "\u00A0"}
       </span>
-      <span className="absolute inset-0 flex items-baseline break-words [overflow-wrap:anywhere]">
-        <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-[length:200%_100%] bg-clip-text text-transparent animate-[shimmer_4s_linear_infinite] drop-shadow-[0_0_28px_oklch(0.68_0.235_38/0.45)]">
-          {out}
-        </span>
-        <span className="ml-1 inline-block h-[0.85em] w-[3px] rounded-sm bg-primary align-[-0.1em] shadow-[0_0_14px_oklch(0.68_0.235_38/0.9)] animate-pulse md:w-[4px]" />
-      </span>
+      <span
+        className="ml-2 inline-block h-[0.78em] w-[3px] translate-y-[0.06em] rounded-sm bg-primary shadow-[0_0_14px_oklch(0.68_0.235_38/0.9)] animate-pulse md:w-[4px]"
+        aria-hidden
+      />
     </span>
   );
 }
@@ -131,7 +124,7 @@ export function Hero() {
       />
       <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-r from-background via-background/82 to-background/10" />
       <div className="absolute inset-0 z-[3] pointer-events-none bg-gradient-to-b from-background/35 via-background/10 to-background" />
-      <div className="absolute inset-y-0 left-0 z-[4] w-[88%] pointer-events-none bg-gradient-to-r from-background via-background/92 to-transparent md:w-[58%]" />
+      <div className="absolute inset-y-0 left-0 z-[4] w-[92%] pointer-events-none bg-gradient-to-r from-background via-background/94 to-transparent md:w-[64%]" />
       <div className="absolute bottom-0 left-0 right-0 z-[5] h-36 sm:h-48 pointer-events-none bg-gradient-to-t from-background to-transparent" />
 
       {/* Ambient lights */}
@@ -139,7 +132,7 @@ export function Hero() {
       <div className="absolute -right-24 bottom-10 z-[6] h-[220px] w-[220px] sm:h-[360px] sm:w-[360px] rounded-full bg-primary/12 blur-[90px] sm:blur-[110px] pointer-events-none" />
 
       <div className="container-max relative z-10 grid min-h-[calc(100vh-7rem)] sm:min-h-[calc(100vh-9rem)] w-full items-center gap-10 px-5 sm:px-6 md:px-10 lg:grid-cols-[1.08fr_0.92fr] lg:px-16">
-        <div className="w-full max-w-full lg:max-w-3xl">
+        <div className="w-full max-w-full lg:max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -159,22 +152,21 @@ export function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.08 }}
-            className="font-display text-[clamp(2.1rem,9.2vw,3.3rem)] font-black leading-[0.98] tracking-[-0.05em] text-foreground [word-break:break-word] [overflow-wrap:anywhere] sm:text-6xl sm:leading-[0.95] sm:tracking-[-0.06em] md:text-7xl lg:text-[6.2rem] xl:text-[6.7rem]"
+            className="font-display text-[clamp(2.35rem,8.1vw,3.7rem)] font-black leading-[1.06] tracking-[-0.045em] text-foreground [word-break:normal] sm:text-6xl sm:leading-[1.04] sm:tracking-[-0.055em] md:text-7xl lg:text-[5.45rem] xl:text-[6rem] 2xl:text-[6.45rem]"
           >
-            Criando
-            <br />
+            <span className="block">Criando</span>
             <Typewriter phrases={PHRASES} startDelay={520} typeSpeed={58} />
-            <br />
-            <span className="text-foreground/95">que conectam</span>
-            <br />
-            pessoas e tecnologia.
+            <span className="block text-foreground/95">que conectam</span>
+            <span className="block max-w-[13ch] leading-[1.04] sm:max-w-none">
+              pessoas e tecnologia.
+            </span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.25 }}
-            className="mt-6 max-w-full text-[0.95rem] leading-relaxed text-muted-foreground sm:mt-8 sm:max-w-2xl sm:text-base md:text-xl"
+            className="mt-7 max-w-full text-[0.95rem] leading-relaxed text-muted-foreground sm:mt-8 sm:max-w-2xl sm:text-base md:text-xl"
           >
             Sou <span className="font-semibold text-foreground">Alexandre de Lima Cardoso</span> —
             Desenvolvedor Full-Stack Sênior e UX/UI Designer. Transformo ideias em landing pages,
