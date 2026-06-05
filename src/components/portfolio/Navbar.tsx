@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
+import logoImg from "@/assets/alexandre-logo.png";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -9,7 +10,6 @@ const links = [
   { href: "#contato", label: "Contato" },
 ];
 
-const LOGO_URL = "https://growmoneydigital.com.br/alexandre/logo.png";
 const WHATSAPP = "https://wa.me/5562981321845?text=Ol%C3%A1%20Alexandre%2C%20vim%20pelo%20seu%20portf%C3%B3lio!";
 
 export function Navbar() {
@@ -42,12 +42,12 @@ export function Navbar() {
           aria-label="Alexandre Lima - início"
         >
           <img
-            src={LOGO_URL}
+            src={logoImg}
             alt="Alexandre Lima"
             className={`w-auto object-contain transition-all duration-500 ${
               scrolled
-                ? "h-11 max-w-[300px] sm:h-12 sm:max-w-[390px] md:h-14 md:max-w-[480px] lg:h-16 lg:max-w-[580px]"
-                : "h-16 max-w-[360px] sm:h-20 sm:max-w-[500px] md:h-24 md:max-w-[650px] lg:h-28 lg:max-w-[780px] xl:h-32 xl:max-w-[880px]"
+                ? "h-12 max-w-[70vw] sm:h-14 sm:max-w-none md:h-16 lg:h-[76px]"
+                : "h-16 max-w-[70vw] sm:h-20 sm:max-w-none md:h-24 lg:h-28 xl:h-32"
             }`}
             loading="eager"
             decoding="async"

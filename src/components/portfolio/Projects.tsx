@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Eye, X } from "lucide-react";
+import { ArrowUpRight, Eye, FileText, X } from "lucide-react";
+import { localProjects } from "./localProjects";
 import triboCamisetas from "@/assets/tribo-camisetas.jpg.asset.json";
 import triboBranding from "@/assets/tribo-branding.jpg.asset.json";
 import missGoias from "@/assets/miss-goias.jpg.asset.json";
@@ -12,18 +13,20 @@ import xtremeCamisetas from "@/assets/xtreme-camisetas.jpg.asset.json";
 import xtremeCap from "@/assets/xtreme-cap.jpg.asset.json";
 import xtremePresentation from "@/assets/xtreme-presentation.png.asset.json";
 
-type Project = {
+export type Project = {
   id: number;
   title: string;
   category: string;
   tag: "Branding" | "Editorial" | "Social Media" | "Identidade Visual";
-  image: string;
+  image: string | null;
+  file?: string;
+  fileType?: "image" | "pdf";
   description: string;
   stack: string[];
   kpi: string;
 };
 
-const projects: Project[] = [
+const featuredProjects: Project[] = [
   { id: 1, title: "Tribo Produções", category: "Branding · Vestuário", tag: "Branding", image: triboCamisetas.url, description: "Identidade visual e linha de camisetas para a Tribo Produções, com mascote tiki autoral e tipografia condensada de alto impacto.", stack: ["Illustrator", "Photoshop", "Mockups"], kpi: "Marca 100% autoral" },
   { id: 2, title: "Tribo · Papelaria", category: "Identidade Visual completa", tag: "Identidade Visual", image: triboBranding.url, description: "Sistema de identidade da Tribo Produções aplicado em papelaria, cartões, envelopes e mídia física com acabamento premium.", stack: ["Branding", "Print", "Mockups"], kpi: "Kit completo entregue" },
   { id: 3, title: "Miss Goiás Magazine", category: "Editorial · Revista", tag: "Editorial", image: missGoias.url, description: "Capa e teaser de lançamento da Revista Miss Goiás, com direção de arte editorial e tipografia clássica em serifa.", stack: ["InDesign", "Photoshop", "Direção de Arte"], kpi: "Edição publicada" },
@@ -35,6 +38,8 @@ const projects: Project[] = [
   { id: 9, title: "Xtreme · Boné", category: "Brinde corporativo", tag: "Branding", image: xtremeCap.url, description: "Aplicação bordada do símbolo Xtreme Shoes em boné snapback, mantendo a leitura mesmo em tom-sobre-tom.", stack: ["Mockup", "Branding"], kpi: "Lote produzido" },
   { id: 10, title: "Xtreme · Banner", category: "Comunicação visual", tag: "Social Media", image: xtremeLogo.url, description: "Peça de comunicação do símbolo Xtreme Shoes com produto fotografado, usada como cover e mídia paga.", stack: ["Photoshop", "Direção de Arte"], kpi: "Campanha rodando" },
 ];
+
+const projects: Project[] = [...featuredProjects, ...localProjects];
 
 const filters = ["Todos", "Branding", "Identidade Visual", "Editorial", "Social Media"] as const;
 
@@ -74,8 +79,6 @@ function ProjectCard({ project: p, idx, onOpen }: { project: Project; idx: numbe
     setHovering(false);
   };
 
-  const isFeatured = idx % 5 === 0;
-
   return (
     <motion.button
       ref={ref}
@@ -87,24 +90,33 @@ function ProjectCard({ project: p, idx, onOpen }: { project: Project; idx: numbe
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.92 }}
-      transition={{ duration: 0.45, delay: idx * 0.05 }}
+      transition={{ duration: 0.45, delay: Math.min(idx, 8) * 0.04 }}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       whileHover={{ y: -6 }}
-      className={`card-project group relative text-left will-change-transform ${
-        isFeatured ? "lg:row-span-2" : ""
-      }`}
+      className="card-project group relative h-full min-h-[430px] w-[82vw] max-w-[360px] shrink-0 snap-center text-left will-change-transform sm:w-[360px] lg:w-[390px]"
       aria-label={`Abrir projeto ${p.title}`}
     >
-      <div className={`relative overflow-hidden ${isFeatured ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
-        <motion.img
-          src={p.image}
-          alt={p.title}
-          loading="lazy"
-          draggable={false}
-          style={{ x: imgX, y: imgY, scale: hovering ? 1.12 : 1 }}
-          transition={{ scale: { duration: 0.6, ease: [0.2, 0.8, 0.2, 1] } }}
-          className="absolute -left-[6%] -top-[6%] h-[112%] w-[112%] object-cover"
-        />
+      <div className="relative aspect-[4/3] overflow-hidden">
+        {p.image ? (
+          <motion.img
+            src={p.image}
+            alt={p.title}
+            loading="lazy"
+            draggable={false}
+            style={{ x: imgX, y: imgY, scale: hovering ? 1.12 : 1 }}
+            transition={{ scale: { duration: 0.6, ease: [0.2, 0.8, 0.2, 1] } }}
+            className="absolute -left-[6%] -top-[6%] h-[112%] w-[112%] object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-surface-elevated text-center">
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10 text-primary">
+              <FileText className="h-10 w-10" />
+            </div>
+            <span className="px-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Documento PDF
+            </span>
+          </div>
+        )}
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-90" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-primary/40 via-primary/0 to-primary/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -151,8 +163,43 @@ function ProjectCard({ project: p, idx, onOpen }: { project: Project; idx: numbe
 export function Projects() {
   const [active, setActive] = useState<(typeof filters)[number]>("Todos");
   const [modal, setModal] = useState<Project | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
 
   const filtered = active === "Todos" ? projects : projects.filter((p) => p.tag === active);
+  const carouselProjects = filtered.length > 3 ? [...filtered, ...filtered] : filtered;
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    el.scrollLeft = 0;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion || filtered.length <= 3) return;
+
+    let frame = 0;
+    let last = performance.now();
+    const speed = 0.035;
+
+    const tick = (now: number) => {
+      const delta = now - last;
+      last = now;
+
+      if (!pausedRef.current) {
+        el.scrollLeft += delta * speed;
+        const halfway = el.scrollWidth / 2;
+        if (el.scrollLeft >= halfway) {
+          el.scrollLeft -= halfway;
+        }
+      }
+
+      frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [active, filtered.length]);
 
   return (
     <section id="projetos" className="section-padding relative">
@@ -183,10 +230,26 @@ export function Projects() {
           </div>
         </div>
 
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 [perspective:1400px]">
+        <motion.div
+          ref={carouselRef}
+          layout
+          className="portfolio-carousel -mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-8 [perspective:1400px] md:-mx-10 md:px-10 lg:-mx-16 lg:px-16"
+          onMouseEnter={() => {
+            pausedRef.current = true;
+          }}
+          onMouseLeave={() => {
+            pausedRef.current = false;
+          }}
+          onFocus={() => {
+            pausedRef.current = true;
+          }}
+          onBlur={() => {
+            pausedRef.current = false;
+          }}
+        >
           <AnimatePresence mode="popLayout">
-            {filtered.map((p, idx) => (
-              <ProjectCard key={p.id} project={p} idx={idx} onOpen={() => setModal(p)} />
+            {carouselProjects.map((p, idx) => (
+              <ProjectCard key={`${p.id}-${idx}`} project={p} idx={idx} onOpen={() => setModal(p)} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -214,9 +277,22 @@ export function Projects() {
               >
                 <X className="w-5 h-5" />
               </button>
-              <div className="aspect-[16/9] overflow-hidden">
-                <img src={modal.image} alt={modal.title} className="w-full h-full object-cover" />
-              </div>
+              {modal.image ? (
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img src={modal.image} alt={modal.title} className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <div className="flex aspect-[16/9] items-center justify-center bg-surface-elevated">
+                  <div className="flex flex-col items-center gap-4 text-center">
+                    <div className="flex h-24 w-24 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10 text-primary">
+                      <FileText className="h-12 w-12" />
+                    </div>
+                    <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                      Documento PDF
+                    </span>
+                  </div>
+                </div>
+              )}
               <div className="p-8 md:p-10">
                 <div className="text-xs text-primary uppercase tracking-[0.25em] font-semibold">{modal.tag} · {modal.category}</div>
                 <h3 className="mt-3 font-display font-bold text-3xl md:text-4xl">{modal.title}</h3>
@@ -229,6 +305,17 @@ export function Projects() {
                 <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm font-semibold">
                   Resultado: {modal.kpi}
                 </div>
+                {modal.file && (
+                  <a
+                    href={modal.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 ml-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold transition hover:opacity-90"
+                  >
+                    <ArrowUpRight className="h-4 w-4" />
+                    Abrir arquivo
+                  </a>
+                )}
               </div>
             </motion.div>
           </motion.div>
