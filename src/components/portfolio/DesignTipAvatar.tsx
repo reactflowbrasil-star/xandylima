@@ -15,7 +15,7 @@ const tips = [
 ];
 
 const FIRST_APPEAR_DELAY = 2_000;
-const APPEAR_INTERVAL = 5 * 60 * 1_000;
+const APPEAR_INTERVAL = 3 * 60 * 1_000;
 const VISIBLE_TIME = 12_000;
 
 export function DesignTipAvatar() {
